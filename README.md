@@ -69,7 +69,7 @@ GKE_METADATA
 ## ⚙️ Setup and Deployment
 Follow these steps to configure your environment and run the test.
 
-Step 1: Create Service Accounts
+### Step 1: Create Service Accounts
 Workload Identity requires a Kubernetes Service Account (KSA) and a Google Cloud Service Account (GSA).
 The KSA will impersonate the GSA to gain access to Google Cloud resources.
 
@@ -91,7 +91,7 @@ kubectl create serviceaccount ${KSA_NAME} --namespace ${NAMESPACE}
 ```bash
 gcloud iam service-accounts create ${GSA_NAME} --project=${PROJECT_ID}
 ```
-## Step 2: Configure Workload Identity
+### Step 2: Configure Workload Identity
 Next, bind the GSA to the KSA so that the GKE Pod can use the GSA's permissions.
 
 ```Bash
@@ -109,7 +109,7 @@ kubectl annotate serviceaccount ${KSA_NAME} \
     --overwrite
 ```
 
-Step 3: Grant GCS Permissions
+### Step 3: Grant GCS Permissions
 Grant the GSA the necessary permissions to read and write to your GCS buckets.
 The example code uses storage.objectViewer to list objects and storage.objectAdmin for write access.
 
@@ -125,7 +125,7 @@ gcloud storage buckets add-iam-policy-binding gs://${INPUT_BUCKET} \
     --role="roles/storage.objectViewer"
 ```
 
-Step 4: Run the Cloud Build Pipeline
+### Step 4: Run the Cloud Build Pipeline
 Finally, trigger the Cloud Build pipeline to execute the entire workflow. This command will build the Docker image, push it to Artifact Registry, and run the Python script within a GKE Pod.
 
 ```Bash
