@@ -7,10 +7,11 @@ This repository contains a test setup for running a media transcoding job on Goo
 🚀 Overview
 The purpose of this setup is to demonstrate the end-to-end process of:
 
-Building a Docker container that lists files in a GCS bucket.
-Pushing the container to Google's Artifact Registry.
-Deploying the container as a Pod on a GKE cluster.
-Using Workload Identity to grant the GKE Pod's Service Account access to GCS without requiring credentials or API keys.
+* Building a Docker container that lists files in a GCS bucket.
+* Pushing the container to Google's Artifact Registry.
+* Deploying the container as a Pod on a GKE cluster.
+* Using Workload Identity to grant the GKE Pod's Service Account access to GCS without requiring credentials or API keys.
+* Use the Storge API to list the objects in the bucket.
 
 📂 Included Files
 list-files-bucket-pod.yaml: A Kubernetes manifest for a Pod that runs a Python script to list files in a GCS bucket.
@@ -45,14 +46,24 @@ and running the Pod on GKE.
 
 01-setup-workload-identity.sh: A collection of gcloud and kubectl commands to set up the necessary Service Accounts and IAM policies for Workload Identity.
 
-🛠️ Prerequisites
+## 🛠️ Prerequisites
 Before you begin, ensure you have:
 
 A Google Cloud project with billing enabled.
 A GKE cluster with Workload Identity enabled.
+Each node pool must have workload identity enabled.
 The gcloud and kubectl command-line tools installed.
 
-⚙️ Setup and Deployment
+If the response is anything other than GKE_METADATA then workload identity has not been enabled.
+```bash
+gcloud container node-pools describe NODE_POOL_NAME \
+    --cluster=CLUSTER_NAME \
+    --region=CLUSTER_REGION \
+    --format="json(workloadMetadataConfig)"
+GKE_METADATA
+```
+
+## ⚙️ Setup and Deployment
 Follow these steps to configure your environment and run the test.
 
 Step 1: Create Service Accounts
@@ -73,7 +84,7 @@ NAMESPACE=default
 kubectl create serviceaccount ${KSA_NAME} --namespace ${NAMESPACE}
 ```
 
-# Create the Google Cloud Service Account
+## Create the Google Cloud Service Account
 ```bash
 gcloud iam service-accounts create ${GSA_NAME} --project=${PROJECT_ID}
 ```
