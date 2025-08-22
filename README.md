@@ -1,5 +1,7 @@
 
-### Workload Identity Test - On GKE, run a pod which accesses a GCS bucket to list files using workload identity
+### GKE Workload Identity Walkthrough
+
+On GKE, run a pod which accesses a GCS bucket to list files using workload identity
 
 
 This repository contains a test setup for running a media transcoding job on Google Kubernetes Engine (GKE) using Workload Identity to securely access Google Cloud Storage (GCS) buckets. The core components are a GKE Pod and a Cloud Build pipeline.
@@ -11,7 +13,7 @@ The purpose of this setup is to demonstrate the end-to-end process of:
 * Pushing the container to Google's Artifact Registry.
 * Deploying the container as a Pod on a GKE cluster.
 * Using Workload Identity to grant the GKE Pod's Service Account access to GCS without requiring credentials or API keys.
-* Use the Storge API to list the objects in the bucket.
+* Using Python3, use the Storge API to list the objects in the bucket.
 
 📂 Included Files
 list-files-bucket-pod.yaml: A Kubernetes manifest for a Pod that runs a Python script to list files in a GCS bucket.
