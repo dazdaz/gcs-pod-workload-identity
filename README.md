@@ -109,7 +109,7 @@ kubectl annotate serviceaccount ${KSA_NAME} \
     --overwrite
 ```
 
-### Step 3: Grant GCS Permissions
+### Step 3: Grant IAM roles for GCS bucket to GSA_EMAIL
 Grant the GSA the necessary permissions to read and write to your GCS buckets.
 The example code uses storage.objectViewer to list objects and storage.objectAdmin for write access.
 
