@@ -1,5 +1,5 @@
 
-# Workload Identity Test - On GKE, run a pod which accesses a GCS bucket to list files using workload identity
+### Workload Identity Test - On GKE, run a pod which accesses a GCS bucket to list files using workload identity
 
 
 This repository contains a test setup for running a media transcoding job on Google Kubernetes Engine (GKE) using Workload Identity to securely access Google Cloud Storage (GCS) buckets. The core components are a GKE Pod and a Cloud Build pipeline.
@@ -43,7 +43,7 @@ spec:
 cloudbuild.yaml: A Cloud Build configuration file that automates the entire workflow, including building the Docker image, pushing it,
 and running the Pod on GKE.
 
-setup_commands.sh: A collection of gcloud and kubectl commands to set up the necessary Service Accounts and IAM policies for Workload Identity.
+01-setup-workload-identity.sh: A collection of gcloud and kubectl commands to set up the necessary Service Accounts and IAM policies for Workload Identity.
 
 🛠️ Prerequisites
 Before you begin, ensure you have:
@@ -62,7 +62,6 @@ The KSA will impersonate the GSA to gain access to Google Cloud resources.
 Run the following commands, replacing the placeholder values with your specific project and cluster names:
 
 ```Bash
-
 PROJECT_ID=myproject
 CLUSTER_NAME=mycluster
 KSA_NAME=gke-${CLUSTER_NAME}-service-account
